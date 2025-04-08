@@ -1,0 +1,1 @@
+"""Demonstrates a typical pipeline."""

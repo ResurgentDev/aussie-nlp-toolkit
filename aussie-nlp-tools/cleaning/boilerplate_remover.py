@@ -1,0 +1,1 @@
+"""Removes irrelevant content (e.g., ads, footers)."""

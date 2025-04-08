@@ -1,0 +1,1 @@
+"""Tests for aussie_spelling_normaliser.py."""

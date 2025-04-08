@@ -1,0 +1,1 @@
+"""Filters metadata (e.g., timestamps, author info)."""

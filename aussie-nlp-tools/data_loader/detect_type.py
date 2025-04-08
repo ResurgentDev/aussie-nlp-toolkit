@@ -1,0 +1,1 @@
+"""Detects file types (e.g., HTML, JSON, CSV)."""

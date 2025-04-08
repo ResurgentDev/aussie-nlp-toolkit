@@ -1,0 +1,1 @@
+"""Normalises Australian spelling."""

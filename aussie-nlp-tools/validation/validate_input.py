@@ -1,0 +1,1 @@
+"""Validates input formats."""

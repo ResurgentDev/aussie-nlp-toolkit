@@ -1,0 +1,1 @@
+"""Detects and tokenises Aussie slang."""

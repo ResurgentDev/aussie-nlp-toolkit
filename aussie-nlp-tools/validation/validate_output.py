@@ -1,0 +1,1 @@
+"""Checks output consistency."""

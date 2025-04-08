@@ -1,0 +1,1 @@
+"""Processes plain text files."""
