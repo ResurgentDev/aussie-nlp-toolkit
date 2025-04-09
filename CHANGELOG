@@ -1,0 +1,25 @@
+# CHANGELOG
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+### Added
+- `constants.py`: Centralized all file type constants for clarity and scalability.
+- `data/loaded/` directory and `.gitkeep` file for managing temporary storage of loaded raw data.
+- Initial `data_loader_dispatcher.py` module placeholder with docstring.
+- Added pipeline overview and updated directory structure to the `README.md`.
+
+### Changed
+- Revised `README.md` to remove redundant `raw/` subdirectories and clarify project structure.
+- Updated `detect_filetype.py` with an improved docstring emphasizing its role in dynamic file classification.
+
+### Removed
+- Deleted `data/raw/` subdirectories (`html/`, `pdfs/`, `csv/`, etc.) for simplification.
+- Removed redundant raw subdirectory `.gitkeep` files.
+
+## [0.1.0] - 2025-04-08
+### Added
+- Project initialization with directory structure and foundational modules.
+- `data_loader_html.py` and `data_loader_json.py` modules (pending docstring finalization).
