@@ -18,29 +18,39 @@ Whether you're processing `.au` domain websites, legal archives, scientific publ
 
 ## Pipeline Overview
 
-The Aussie NLP Toolkit processes data through distinct stages, providing flexibility and modularity for different tasks. Each stage is handled by specialized modules, ensuring a scalable and maintainable workflow.
+The Aussie NLP Toolkit processes data through distinct stages, ensuring flexibility, modularity, and scalability. Each stage consists of sub-pipelines managed by dispatchers and specialized modules.
 
-1. **Data Loading**  
-   Extracts raw data from input files using loader modules (e.g., HTML, JSON, CSV). Outputs raw data as temporary files in `data/loaded/`.
+### Stages in the Pipeline
+1. **Data Loading**
+   - Extracts raw data from `data/raw/`, routes files to the appropriate loader modules.
+   - Outputs temporary files into `data/loaded/`.
 
-2. **Cleaning**  
-   Refines raw data to ensure consistency and quality. Cleaning modules handle tasks such as deduplication, noise removal, and normalization. Outputs cleaned data into `data/cleaned/`.
+2. **Cleaning**
+   - Refines loaded data by removing noise, normalizing formats, deduplicating, and filtering content.
+   - Outputs cleaned files into `data/cleaned/`.
 
-3. **Tokenization**  
-   Processes cleaned text into smaller units, such as sentences or words, for NLP tasks. Outputs tokenized data into `data/processed/`.
+3. **Tokenisation**
+   - Converts cleaned text into smaller, meaningful units (sentences, tokens, slang terms).
+   - Outputs tokenised files into `data/processed/`.
 
-4. **Validation**  
-   Ensures input/output data meet expected formats and quality standards before passing to downstream workflows. Outputs validated data into `data/processed/`.
+4. **Validation**
+   - Ensures data integrity and completeness for downstream use.
+   - Outputs validated files into `data/processed/`.
 
-5. **Data Generation**  
-   Produces final datasets, reports, or predictions, stored in `data/generated/`.
+5. **Data Generation**
+   - Produces final datasets in user-specified formats (e.g., JSON, CSV, SQLite).
+   - Outputs final files into `data/generated/`.
 
-This modular approach allows users to run the entire pipeline or specific stages independently based on their needs.
+---
+
+### Detailed Pipeline Documentation
+For a complete breakdown of each stage, including module details and file flow, refer to [pipeline.md](pipeline.md).
 
 ---
 
 ## Directory Structure
 The project is organized into a logical structure for clarity, modularity, and scalability:
+
 
 ```
 aussie_nlp_toolkit/

@@ -4,18 +4,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.0] - 2025-04-10
 ### Added
+- `pipeline.md`: Detailed breakdown of the pipeline, moved from `README.md` for clarity and maintainability.
+- `cleaning_dispatcher.py`: Manages file flow through the cleaning sub-pipeline.
+- `tokenising_dispatcher.py`: Orchestrates the tokenisation sub-pipeline.
+- `generation_dispatcher.py`: Handles output file type generation logic.
+- `data/cleaned/cleaning/` and `data/processed/tokenising/` directories with `.gitkeep` files for sub-pipeline file management.
+- Validation consolidated into `validate_pipeline.py` for streamlined checking and logging.
 - `constants.py`: Centralized all file type constants for clarity and scalability.
 - `data/loaded/` directory and `.gitkeep` file for managing temporary storage of loaded raw data.
 - Initial `data_loader_dispatcher.py` module placeholder with docstring.
 - Added pipeline overview and updated directory structure to the `README.md`.
 
 ### Changed
+- `README.md`: Revised to include a concise pipeline overview and a link to `pipeline.md` for detailed documentation.
+- Pipeline logic redefined:
+  - Introduced dispatchers for Cleaning and Tokenisation stages to improve modularity and flow control.
+  - Added comprehensive folder structure for managing intermediate pipeline outputs.
+  - Adjusted validation logic to focus on a single `validate_pipeline.py` module.
 - Revised `README.md` to remove redundant `raw/` subdirectories and clarify project structure.
 - Updated `detect_filetype.py` with an improved docstring emphasizing its role in dynamic file classification.
 
 ### Removed
+- `validate_input.py` and `validate_output.py` removed in favor of the consolidated `validate_pipeline.py`.
+- Removed redundant validation step documentation in favor of streamlined logic.
 - Deleted `data/raw/` subdirectories (`html/`, `pdfs/`, `csv/`, etc.) for simplification.
 - Removed redundant raw subdirectory `.gitkeep` files.
 
