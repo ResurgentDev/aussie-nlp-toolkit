@@ -142,7 +142,7 @@ Each directory includes a `.gitkeep` file to maintain the structure in the repos
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/aussie-nlp-toolkit.git
+   git clone https://github.com/resurgentdev/aussie-nlp-toolkit.git
    cd aussie-nlp-toolkit
    ```
 
