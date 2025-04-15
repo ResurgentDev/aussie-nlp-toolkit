@@ -5,17 +5,24 @@ The Aussie NLP Toolkit processes data through distinct stages, ensuring flexibil
 ## 1. Data Loading
 
 ### Purpose:
-Extract raw data from `data/raw/` and route files to appropriate loader modules for initial processing.
+Determine the file type of each input in `data/raw/` and route it to the appropriate loader module. 
+If a file is unsupported, it is moved to `data/failed/unsupported/`. 
+If a file is corrupt, it is moved to `data/failed/corrupt/`. 
+All valid files are passed to their designated loading module for structured processing and stored in `data/loaded/`.
 
 ### Workflow:
 1. **`data_loader_dispatcher.py`**
    - Iterates over files in `data/raw/`.
    - Routes files to `detect_filetype.py` for classification.
    - Calls the appropriate loader module based on the file type.
+   - Moves unsupported files to `data/failed/unsupported/`.
+   - Moves corrupt files to `data/failed/corrupt/`.
 
 2. **`detect_filetype.py`**
-   - Identifies file type (e.g., HTML, JSON, CSV).
-   - Categorizes unsupported or corrupted files for logging.
+   - Determines file type (e.g., HTML, JSON, CSV).
+   - Identifies unsupported formats and moves them to `data/failed/unsupported/`.
+   - Detects corrupted files and moves them to `data/failed/corrupt/`.
+   - Routes valid files to loader modules for structured processing.
 
 3. **Loader Modules**
    - Process files based on type:
@@ -26,7 +33,9 @@ Extract raw data from `data/raw/` and route files to appropriate loader modules 
      - `data_loader_pdf.py`
 
 ### Outputs:
-- Temporary files in `data/loaded/`.
+- Successfully loaded files → `data/loaded/`
+- Unsupported file types → `data/failed/unsupported/`
+- Corrupted files → `data/failed/corrupt/`
 
 ---
 
@@ -111,15 +120,20 @@ Produce final datasets in user-specified formats (e.g., JSON, CSV, SQLite).
 ## File Structure
 The pipeline uses the following directory structure:
 
+```
 aussie_nlp_toolkit/ 
-├── data/raw/ # Input files (user-managed) 
-├── data/loaded/ # Temporary files (Data Loading stage) 
-├── data/cleaned/ # Files after Cleaning sub-pipeline 
-│ ├── cleaning/ # Intermediate cleaning files 
-├── data/processed/ # Files after Tokenisation sub-pipeline 
-│ ├── tokenising/ # Intermediate tokenising files 
-├── data/generated/ # Final datasets
-
+├── data/raw/        # Input files (user-managed) 
+├── data/loaded/     # Successfully loaded files (ready for processing) 
+├── data/failed/     # Files that failed processing 
+│ ├── corrupt/       # Corrupted files detected during loading 
+│ ├── unsupported/   # Unsupported file types 
+├── data/cleaned/    # Files after the Cleaning sub-pipeline 
+│ ├── cleaning/      # Intermediate cleaning files 
+├── data/processed/  # Files after the Tokenisation sub-pipeline 
+│ ├── tokenising/    # Intermediate tokenising files 
+├── data/validated/  # Fully validated data ready for output generation 
+├── data/generated/  # Final datasets in specified formats
+```
 
 ## Running the Toolkit
 
