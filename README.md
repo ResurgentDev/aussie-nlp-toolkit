@@ -21,25 +21,24 @@ Whether you're processing `.au` domain websites, legal archives, scientific publ
 The Aussie NLP Toolkit processes data through distinct stages, ensuring flexibility, modularity, and scalability. Each stage consists of sub-pipelines managed by dispatchers and specialized modules.
 
 ### Stages in the Pipeline
-1. **Data Loading**
-   - Extracts raw data from `data/raw/`, routes files to the appropriate loader modules.
-   - Outputs temporary files into `data/loaded/`.
 
-2. **Cleaning**
-   - Refines loaded data by removing noise, normalizing formats, deduplicating, and filtering content.
-   - Outputs cleaned files into `data/cleaned/`.
-
-3. **Tokenisation**
-   - Converts cleaned text into smaller, meaningful units (sentences, tokens, slang terms).
-   - Outputs tokenised files into `data/processed/`.
-
-4. **Validation**
-   - Verifies data integrity, correctness, and format compliance.
-   - Outputs validated files into `data/validated/`.
-
-5. **Data Generation**
-   - Produces final datasets in user-specified formats (e.g., JSON, CSV, SQLite).
-   - Outputs final files into `data/generated/`.
+1. **Data Sourcing** – Identify diverse, high-quality sources and track licenses.
+2. **Data Loading** – Route raw files to format-specific loader modules.
+3. **Preprocessing** – Clean, deduplicate, filter unsafe content, and normalise formats.
+4. **Quality Filtering** – Remove low-quality, biased, toxic, or machine-generated text.
+5. **Structuring & Metadata** – Add metadata and convert into model-friendly formats.
+6. **Balancing** – Balance domain and content-type distribution (code, prose, dialogue).
+7. **Tokenisation** – Convert into tokens or subword units.
+8. **Validation** – Verify data integrity, structure, and metadata.
+9. **Human-in-the-Loop** – Collect annotations, red-teaming data, and RLHF examples.
+10. **Data Generation** – Export in final output formats (JSONL, CSV, SQLite).
+11. **Documentation & Auditing** – Full data lineage, rationale logs, and summaries.
+12. **Data Versioning** – Hash and log outputs for reproducibility and rollback.
+13. **Bias and Fairness Audits** – Generate representation and fairness reports.
+14. **Evaluation Feedback Loop** – Feed downstream model feedback into data refinements.
+15. **Compression & Archival** – Archive and compress long-term or outdated datasets.
+16. **Configuration Profiles** – Use modular YAML/JSON config profiles for repeatability.
+17. **Red-Team Dataset Versioning & Reuse** – Track versions of adversarial eval sets.
 
 **NOTE:** 
    - Files detected as corrupted are moved into `data/failed/corrupt/`
@@ -58,64 +57,31 @@ The project is organized into a logical structure for clarity, modularity, and s
 ```
 aussie_nlp_toolkit/
 ├── aussie-nlp-tools/                     # Core library modules
-│   ├── constants.py                      # Shared constants and configurations
-│   ├── data_loader/                      # Handles data loading from different formats
-│   │   ├── detect_filetype.py            # Detects file types (e.g., HTML, JSON, CSV)
-│   │   ├── data_loader_dispatcher.py     # Dispatches files to appropriate loaders
-│   │   ├── data_loader_html.py           # Parses HTML files
-│   │   ├── data_loader_json.py           # Loads JSON data
-│   │   ├── data_loader_csv.py            # Reads CSV files
-│   │   ├── data_loader_txt.py            # Processes plain text files
-│   │   ├── data_loader_pdf.py            # Handles PDF parsing
-│   ├── cleaning/                         # Modules for cleaning and normalisation
-│   │   ├── cleaning_dispatcher.py        # Dispatches files to cleaning modules
-│   │   ├── clean_html_tags.py            # Removes HTML tags
-│   │   ├── normalise_unicode.py          # Normalises Unicode characters
-│   │   ├── boilerplate_remover.py        # Removes irrelevant content (e.g., ads, footers)
-│   │   ├── remove_duplicates.py          # Deduplicates datasets
-│   │   ├── aussie_spelling_normaliser.py # Normalises Australian spelling
-│   │   ├── language_filter.py            # Filters out non-English content
-│   ├── tokenisation/                     # Tokenisation modules
-│   │   ├── tokenising_dispatcher.py      # Dispatches files to tokenisation modules
-│   │   ├── split_sentences.py            # Splits text into sentences
-│   │   ├── wordpiece_tokeniser.py        # Tokenises text into subwords (e.g., BPE)
-│   │   ├── aussie_slang_tokeniser.py     # Detects and tokenises Aussie slang
-│   ├── filters/                          # Filters for specific content
-│   │   ├── filters_metadata.py           # Filters metadata (e.g., timestamps, author info)
-│   │   ├── filters_domains.py            # Filters `.au` domain-specific content
-│   │   ├── filters_citation_format.py    # Handles legal/scientific citations
-│   ├── deduplication/                    # Modules for deduplication
-│   │   ├── deduplicate_minhash.py        # Removes duplicates using MinHash
-│   ├── validation/                       # Modules for validation
-│   │   ├── validate_pipeline.py          # Validates files through pipeline stages
-│   ├── output/                           # Handles output formatting
-│   │   ├── generation_dispatcher.py      # Dispatches files to output generators
-│   │   ├── write_csv.py                  # Saves data to CSV format
-│   │   ├── write_json.py                 # Saves data to JSON format
-│   │   └── write_sqlite.py               # Saves data to SQLite databases
-├── data/                                 # Main directory for all data-related inputs and outputs
-│   ├── raw/                              # Contains unprocessed input data
-│   ├── loaded/                           # Contains data after loading stage
-│   ├── failed/                           # Contains files that failed processing
-│   │   ├── corrupt/                      # Files detected as corrupted
-│   │   └── unsupported/                  # Unsupported file types
-│   ├── cleaned/                          # Contains data after cleaning/preprocessing
-│   ├── processed/                        # Contains tokenized files ready for use
-│   ├── validated/                        # Contains validated data files
-│   ├── generated/                        # Outputs generated by scripts or pipelines
-├── examples/                             # Example scripts demonstrating pipeline functionality.
-├── guides/                               # Documentation covering module additions, pipeline execution, and testing.
-├── tests/                                # Test suite with 1-to-1 tests for each core module, plus batch processing and pipeline validation.
-│   CHANGELOG                             # Project changelog and version history
-│   CONTRIBUTING.md                       # Contribution guidelines
-│   LICENCE                               # Licence file 
-│   main.py                               # Main pipeline orchestrator 
-│   pipeline.md                           # Detailed pipeline documentation
-│   README.md                             # Comprehensive project overview
-│   requirements.txt                      # Dependency list
-│   setup.py                              # Makes the library installable
-│   VERSION                               # Version information file
+│   ├── data_loader/                      # Loaders for raw input formats
+│   ├── preprocessing/                    # Cleaning and normalisation stages
+│   ├── tokenisation/                     # Tokenisation and sentence splitting
+│   ├── deduplication/                    # Deduplication via MinHash/SimHash
+│   ├── filters/                          # Domain- and content-specific filtering
+│   ├── validation/                       # Validation modules for pipeline checks
+│   ├── output/                           # Final output format generators
+│   └── constants.py                      # Shared constants and configuration
+├── configs/                              # JSON/YAML configuration profiles
+├── data/                                 # All dataset artifacts 
+├── examples/                             # Pipeline usage demonstrations
+├── guides/                               # Contributor how-tos and design docs
+├── tests/                                # Pytest suites (1-to-1 script coverage)
+├── main.py                               # Main orchestrator script
+├── pipeline.md                           # Detailed stage-by-stage pipeline doc
+├── README.md                             # This file
+├── CHANGELOG                             # Revision history
+├── VERSION                               # Version identifier
+├── requirements.txt                      # Dependency list
+├── setup.py                              # Setup script
+└── LICENCE                               # License details
 ```
+> 🔍 For full `data/` breakdown, see [pipeline.md → File Structure](pipeline.md#file-structure)
+> 🔍 For full `tests/` breakdown, see [tests.md](tests.md)
+
 ### Data Directory Structure
 
 The toolkit includes standardized directories for managing data at various stages of the pipeline:
@@ -126,7 +92,7 @@ The toolkit includes standardized directories for managing data at various stage
 - **`data/loaded/`**  
   Stores raw data extracted by loader modules, serving as temporary intermediary files before cleaning. Temporary files follow a naming convention, such as `<original_filename>_loaded.<extension>`.
 
-- **`data/cleaned/`**  
+- **`data/preprocessed/`**  
   Contains data refined by cleaning scripts, such as deduplicated or normalized text. These outputs are ready for further processing.
 
 - **`data/processed/`**  
@@ -185,11 +151,13 @@ Please follow [PEP 8](https://peps.python.org/pep-0008/) for coding standards.
 - Add parallel data processing for scalability.
 - Introduce model-specific tokenization modules (e.g., SentencePiece).
 - Develop more guides for new contributors.
-
+- Add distributed training dataset prep (e.g., Ray, Dask)
+- Train/test split automation with leakage detection
+- Modular plugin support for third-party filters
 ---
 
 ## Licence
-This project is licensed under the MIT Licence. See the `LICENCE` file for details.
+This project is licensed under the GNU General Public License. See the `LICENCE` file for details.
 
 ---
 

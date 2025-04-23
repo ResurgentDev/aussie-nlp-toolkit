@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [0.3.0] – 2025-04-23
+
+### 🚀 Major Overhaul: Pipeline Expansion & Infrastructure Scaling
+
+- Expanded the core data pipeline from **5 stages to 17**, covering every major aspect of modern LLM dataset engineering:
+  - Added: **Preprocessing**, **Quality Filtering**, **Structuring & Metadata**, **Balancing**, **Human-in-the-Loop**, **Documentation & Auditing**
+  - Newly introduced: **Data Versioning**, **Bias and Fairness Audits**, **Evaluation Feedback Loop**, **Compression & Archival**, **Configuration Profiles**, and **Red-Team Dataset Versioning & Reuse**
+- Significantly restructured both `README.md` and `pipeline.md` to reflect these enhancements with clearer stages, better flow, and modular scaffolding for future growth.
+- `README.md` now provides a simplified pipeline list and high-level directory overview with references to detailed docs.
+- `pipeline.md` rewritten as a full technical specification with per-stage breakdowns, module placeholders, and output directories.
+
+### 🛠 Refactors & Naming Alignment
+
+- Renamed:
+  - `cleaning/` → `preprocessing/` (for consistency with stage name)
+  - `data/cleaned/` → `data/preprocessed/`
+- Synced all stage names and directory paths across documentation and structure references.
+- Introduced `configs/` directory for YAML/JSON-based pipeline profiles.
+- Cleaned up `README.md` directory tree display to hide complex `data/` breakdowns, with links to detailed views.
+
+### 🧭 Architectural Planning
+
+- Created placeholder `modules.md` to document individual modules with descriptions.
+- Created `tests.md`, `testing.md`, `configs.md`, and moved of all detailed documents to `docs/` for better repo hygiene.
+- Introduced breadcrumb-style links to help contributors find deeper documentation (e.g., `pipeline.md → File Structure`).
+
 ## [0.2.0] - 2025-04-10
 ### Added
 - `pipeline.md`: Detailed breakdown of the pipeline, moved from `README.md` for clarity and maintainability.
