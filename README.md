@@ -46,7 +46,7 @@ The Aussie NLP Toolkit processes data through distinct stages, ensuring flexibil
 ---
 
 ### Detailed Pipeline Documentation
-For a complete breakdown of each stage, including module details and file flow, refer to [pipeline.md](pipeline.md).
+For a complete breakdown of each stage, including module details and file flow, refer to [docs/pipeline.md](docs/pipeline.md).
 
 ---
 
